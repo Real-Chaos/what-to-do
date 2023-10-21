@@ -43,7 +43,6 @@ header div {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 header .logo-div {
@@ -69,7 +68,7 @@ header .nav-toggler {
 }
 
 header .nav-toggler:hover {
-  background: rgba(183, 180, 196, 0.4)
+  background: rgba(183, 180, 196, 0.4);
 }
 
 .tasks-content {
@@ -88,7 +87,6 @@ header .nav-toggler:hover {
   width: 20vw;
   transform: translateX(0vw);
   transition: 1s;
-  
 }
 
 .side-nav .title {
@@ -107,15 +105,18 @@ header .nav-toggler:hover {
   align-items: center;
   gap: 10px;
   margin-top: 10px;
-  padding: 10px 0;
+  padding: 10px 5px;
+  background-color: var(--header-bg);
+}
+
+.side-nav-home div:nth-child(2){
+  border-left: 5px solid var(--green-hover);
 }
 
 .side-nav-home div:hover {
   background-color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
 }
-
-
 
 .side-nav-home img {
   height: 30px;
@@ -126,7 +127,7 @@ header .nav-toggler:hover {
   display: none;
 }
 
-.add-project-input  {
+.add-project-input {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -136,7 +137,7 @@ header .nav-toggler:hover {
   font-size: 30px;
 }
 
-.add-project-input input{
+.add-project-input input {
   width: 80%;
   outline: none;
   background-color: var(--header-bg);
@@ -157,7 +158,7 @@ header .nav-toggler:hover {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-  gap: 5px
+  gap: 5px;
 }
 
 .form-buttons button {
@@ -171,7 +172,6 @@ header .nav-toggler:hover {
 .add-project-text:hover {
   cursor: pointer;
 }
-
 
 /* Tasks */
 

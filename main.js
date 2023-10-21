@@ -41,3 +41,23 @@ const toggleAddForm = (function () {
     addProjectForm.style.display = 'none'
   })
 })()
+
+const alternateTasks = (function(){
+  const taskSections = document.querySelectorAll('.side-nav-home div')
+  taskSections.forEach(section => {
+    section.addEventListener('click', () => {
+      taskSections.forEach(section => {
+        section.style.borderLeft="none"
+      })
+      section.style.borderLeft="5px solid var(--green-hover)"
+      changeTaskHeader(section.lastElementChild.textContent)
+    })
+
+  })
+}())
+
+
+const changeTaskHeader = function(text){
+  const taskHeader = document.querySelector('.tasks-header .title')
+  taskHeader.textContent = text
+}
