@@ -73,10 +73,10 @@ header .nav-toggler:hover {
 }
 
 .tasks-content {
-  display: grid;
   width: 100vw;
-  grid-template-columns: 20vw 80vw;
-  
+  /* display: grid;
+  grid-template-columns: 20vw 80vw; */
+  display: flex;
 }
 
 .side-nav {
@@ -84,7 +84,7 @@ header .nav-toggler:hover {
   padding: 20px;
   display: block;
   height: 89.2vh;
-  position: absolute;
+  /* position: absolute; */
   width: 20vw;
   transform: translateX(0vw);
   transition: 1s;
@@ -120,6 +120,70 @@ header .nav-toggler:hover {
 .side-nav-home img {
   height: 30px;
 }
+
+.add-project-form {
+  margin-bottom: 20px;
+  display: none;
+}
+
+.add-project-input  {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.add-project-input i {
+  font-size: 30px;
+}
+
+.add-project-input input{
+  width: 80%;
+  outline: none;
+  background-color: var(--header-bg);
+  border: none;
+  color: white;
+  padding: 10px;
+}
+
+.add-btn {
+  background: #1f8d4d;
+}
+
+.cancel {
+  background-color: #be0404;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 5px
+}
+
+.form-buttons button {
+  padding: 5px 20px;
+  cursor: pointer;
+  color: var(--text);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: bolder;
+}
+
+.add-project-text:hover {
+  cursor: pointer;
+}
+
+
+/* Tasks */
+
+.display-tasks {
+  width: 100%;
+  padding: 2% 5%;
+}
+
+.display-tasks .tasks-header {
+  background: var(--side-nav);
+  padding: 20px;
+}
 /* Dark mode toggler */
 
 label {
@@ -145,16 +209,16 @@ label:after {
   border-radius: 180px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
-input {
+header input {
   width: 0;
   height: 0;
   visibility: hidden;
 }
 
-input:checked + label {
+header input:checked + label {
   background: #242424;
 }
-input:checked + label:after {
+header input:checked + label:after {
   left: 95px;
   transform: translateX(-100%);
   background: linear-gradient(180deg, #777, #3a3a3a);
