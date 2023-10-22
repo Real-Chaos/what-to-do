@@ -1,16 +1,23 @@
+const taskCollection = {
+  tasks: [],
+}
+
 class tasks {
   constructor({ name, description, date, priority }) {
     ;(this.name = name), (this.description = description), (this.date = date)
     this.priority = priority
-    this.tasksArray = []
-    this.index = this.tasksArray.length
+    this.index = taskCollection.tasks.length
   }
   addTask(task) {
-    this.tasksArray.push(task)
-    console.log(this.tasksArray)
-    displayTasks(this.tasksArray)
+    taskCollection.tasks.push(task)
+    console.log(taskCollection.tasks)
+    displayTasks()
     handleTasksModal()
-    editProject(this.tasksArray)
+    editTask()
+  }
+
+  editTasks() {
+    editTask()
   }
 }
 
@@ -197,6 +204,7 @@ const toggleTasksForm = (function () {
 
   toggler.addEventListener('click', () => {
     div.style.display = 'block'
+    addTask('create', -1)
   })
 
   cancelTask.addEventListener('click', () => {
@@ -223,27 +231,42 @@ const handleTasksModal = function () {
   })
 }
 
-const addTask = (function () {
+const addTask = function (type, ti) {
   const taskForm = document.querySelector('.add-task-form')
   const div = document.querySelector('.add-task-form-div')
 
-  taskForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-    const taskObj = {
-      name: e.target.elements['task-name'].value,
-      description: e.target.elements.description.value,
-      date: e.target.elements.date.value,
-      priority: e.target.elements.priority.value,
-    }
-    const newTask = new tasks(taskObj)
-    newTask.addTask(newTask)
-    div.style.display = 'none'
-    taskForm.reset()
-  })
-})()
+  taskForm.addEventListener(
+    'submit',
+    (e) => {
+      e.preventDefault()
+      const taskObj = {
+        name: e.target.elements.taskName.value,
+        description: e.target.elements.description.value,
+        date: e.target.elements.date.value,
+        priority: e.target.elements.priority.value,
+      }
+      if (type === 'create') {
+        const newTask = new tasks(taskObj)
+        newTask.addTask(newTask)
+      } else {
+        taskCollection.tasks.forEach((task, i) => {
+          if (task.index === ti) {
+            taskCollection.tasks[i] = {...taskObj, index: ti}
+            displayTasks(taskCollection.tasks)
+          }
+        })
+      }
+      div.style.display = 'none'
+      taskForm.reset()
+    },
+    { once: true }
+  )
+}
 
-const displayTasks = (tasks) => {
+const displayTasks = () => {
+  const tasks = taskCollection.tasks
   const tasksDiv = document.querySelector('.task-div')
+  tasksDiv.innerHTML = ''
   tasks.forEach((task) => {
     const html = `
     <div class="task" data-index="${task.index}">
@@ -254,7 +277,7 @@ const displayTasks = (tasks) => {
     <div class="extra-options">
       <button class="details-btn">Details</button>
       <h5>${task.date}</h5>
-      <i class="fa-solid fa-user-pen edit-project-btn"></i>
+      <i class="fa-solid fa-user-pen edit-task-btn"></i>
       <i class="fa-solid fa-trash-can"></i>
     </div>
     <dialog>
@@ -289,18 +312,41 @@ const displayTasks = (tasks) => {
   })
 }
 
-const editTask = (projects) => {
-  const editProjectButton = document.querySelectorAll('.edit-project-btn')
-  let task = ""
-  editProjectButton.forEach((btn) => {
+const editTask = () => {
+  const editTasksButton = document.querySelectorAll('.edit-task-btn')
+  let taskIndex = ''
+  editTasksButton.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      const task = e.target.parentElement.parentElement.getAttribute('data-index')
-      console.log(e.target.parentElement.parentElement.getAttribute('data-index'))
-      runProjectsScan()
+      taskIndex = Number(
+        e.target.parentElement.parentElement.getAttribute('data-index')
+      )
+      console.log(
+        e.target.parentElement.parentElement.getAttribute('data-index')
+      )
+      runTasksScan()
     })
   })
 
-  const runProjectsScan = () => {
-    projects.forEach(project => console.log(project.index))
+  const runTasksScan = () => {
+    taskCollection.tasks.forEach((task) => {
+      if (task.index === taskIndex) {
+        editTaskForm(task)
+      }
+    })
   }
+
+  // taskCollection.tasks.forEach((task) => console.log(task))
+}
+
+const editTaskForm = (task) => {
+  const formDiv = document.querySelector('.add-task-form-div')
+  const form = document.querySelector('.add-task-form')
+
+  formDiv.style.display = 'block'
+  form.elements.taskName.value = task.name
+  form.elements.description.value = task.description
+  form.elements.date.value = task.date
+  form.elements.priority.value = task.priority
+
+  addTask('edit', task.index)
 }
