@@ -2,6 +2,13 @@ const taskCollection = {
   tasks: [],
 }
 
+const allFunction = () => {
+  displayTasks()
+  handleTasksModal()
+  editTask()
+  deleteTasks()
+}
+
 class tasks {
   constructor({ name, description, date, priority }) {
     ;(this.name = name), (this.description = description), (this.date = date)
@@ -9,14 +16,11 @@ class tasks {
     this.index = taskCollection.tasks.length
   }
   addTask(task) {
-    taskCollection.tasks.push(task)
-    console.log(taskCollection.tasks)
-    displayTasks()
-    handleTasksModal()
-    editTask()
+    taskCollection.tasks = task
+    allFunction()
   }
 
-  editTasks() {
+  editTaskArray() {
     editTask()
   }
 }
@@ -48,8 +52,6 @@ const toggleNav = (function () {
   const navToggler = document.querySelector('.nav-toggler')
   const sideNav = document.querySelector('.side-nav')
   navToggler.addEventListener('click', () => {
-    console.log(sideNav.style.display)
-    console.log(sideNav.style.transform)
     if (sideNav.style.transform == 'translateX(-20vw)') {
       sideNav.style.transform = 'translateX(0vw)'
       sideNav.style.width = '20vw'
@@ -57,10 +59,6 @@ const toggleNav = (function () {
       sideNav.style.transform = 'translateX(-20vw)'
       sideNav.style.width = '0vw'
     }
-
-    sideNav.style.transform === 'translateX(0vw)'
-      ? console.log('left -20vw')
-      : console.log('left: 0vw')
   })
 })()
 
@@ -78,7 +76,6 @@ const toggleAddForm = (function () {
 })()
 
 const changeTaskHeader = function (text) {
-  console.log(text)
   const taskHeader = document.querySelector('.tasks-header .title')
   taskHeader.textContent = text
 }
@@ -124,10 +121,8 @@ const addProjectToSidenav = (function () {
 })()
 
 const addProjectToSidenavDOM = (projects) => {
-  console.log(projects)
   const projectSidebar = document.querySelector('.project-sidebar')
   projects.forEach((project) => {
-    // console.log(project)
     const html = `<div class="project-card" data-index="0">
     <div class="text">
       <i class="fa-solid fa-list-check"></i>
@@ -177,10 +172,8 @@ const toggleProjectOptions = function () {
         optionClicked.option.style.display = 'block'
         optionClicked.style = 'block'
       } else if (optionClicked.option.style.display === 'block') {
-        console.log(optionClicked.style)
         optionClicked.option.style.display = 'none'
         optionClicked.style = 'none'
-        console.log()
       } else {
         optionClicked.option.style.display = 'none'
       }
@@ -247,12 +240,16 @@ const addTask = function (type, ti) {
       }
       if (type === 'create') {
         const newTask = new tasks(taskObj)
-        newTask.addTask(newTask)
+        newTask.addTask([...taskCollection.tasks, newTask])
       } else {
         taskCollection.tasks.forEach((task, i) => {
           if (task.index === ti) {
-            taskCollection.tasks[i] = {...taskObj, index: ti}
-            displayTasks(taskCollection.tasks)
+            // taskCollection.tasks[i] = {...taskObj, index: ti}
+            // displayTasks(taskCollection.tasks)
+
+            taskCollection.tasks[i] = { ...taskObj, index: ti }
+            const newTask = new tasks(taskObj)
+            newTask.addTask([...taskCollection.tasks])
           }
         })
       }
@@ -278,7 +275,7 @@ const displayTasks = () => {
       <button class="details-btn">Details</button>
       <h5>${task.date}</h5>
       <i class="fa-solid fa-user-pen edit-task-btn"></i>
-      <i class="fa-solid fa-trash-can"></i>
+      <i class="fa-solid fa-trash-can delete-task-btn"></i>
     </div>
     <dialog>
       <div>
@@ -320,9 +317,7 @@ const editTask = () => {
       taskIndex = Number(
         e.target.parentElement.parentElement.getAttribute('data-index')
       )
-      console.log(
-        e.target.parentElement.parentElement.getAttribute('data-index')
-      )
+
       runTasksScan()
     })
   })
@@ -349,4 +344,22 @@ const editTaskForm = (task) => {
   form.elements.priority.value = task.priority
 
   addTask('edit', task.index)
+}
+
+const deleteTasks = () => {
+  const deleteBtn = document.querySelectorAll('.delete-task-btn')
+  let taskIndex = ''
+  deleteBtn.forEach((btn, i) => {
+    btn.addEventListener('click', (e) => {
+      taskIndex = Number(
+        e.target.parentElement.parentElement.getAttribute('data-index')
+      )
+      const filter = taskCollection.tasks.filter(
+        (task) => task.index !== taskIndex
+      )
+      taskCollection.tasks = filter
+      displayTasks()
+      allFunction()
+    })
+  })
 }
