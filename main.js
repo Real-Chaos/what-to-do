@@ -75,15 +75,35 @@ const toggleProjectOptions = (function () {
   let optionClicked = {
     option: '',
     toggle: '',
+    style: 'none',
   }
+
+  optionsToggler.forEach((toggle, i) => {
+    toggle.addEventListener('click', () => {
+      if (optionClicked.style === 'none') {
+        optionsText[i].style.display = 'block'
+        optionClicked.option = optionsText[i]
+        optionClicked.toggle = toggle
+      }
+    })
+  })
 
   const detectDocument = () => {
     document.addEventListener('click', (e) => {
-      if (
-        optionClicked.option.contains(e.target) ||
+      if (optionClicked.option.contains(e.target)) {
+        optionClicked.option.style.display = 'block'
+        optionClicked.style = 'block'
+      } else if (
+        optionClicked.style === 'none' &&
         e.target === optionClicked.toggle
       ) {
         optionClicked.option.style.display = 'block'
+        optionClicked.style = 'block'
+      } else if (optionClicked.option.style.display === 'block') {
+        console.log(optionClicked.style)
+        optionClicked.option.style.display = 'none'
+        optionClicked.style = 'none'
+        console.log()
       } else {
         optionClicked.option.style.display = 'none'
       }
@@ -98,13 +118,4 @@ const toggleProjectOptions = (function () {
   }
 
   const optionInterval = setInterval(intervalFunc, 500)
-
-  optionsToggler.forEach((toggle, i) => {
-    toggle.addEventListener('click', () => {
-      console.log(toggle, i)
-      optionsText[i].style.display = 'block'
-      optionClicked.option = optionsText[i]
-      optionClicked.toggle = toggle
-    })
-  })
 })()
