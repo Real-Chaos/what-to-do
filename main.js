@@ -42,23 +42,41 @@ const toggleAddForm = (function () {
   })
 })()
 
-const alternateTasks = (function () {
-  const taskSections = document.querySelectorAll('.side-nav-home div')
-  taskSections.forEach((section) => {
-    section.addEventListener('click', () => {
-      taskSections.forEach((section) => {
-        section.style.borderLeft = 'none'
-      })
-      section.style.borderLeft = '5px solid var(--green-hover)'
-      changeTaskHeader(section.lastElementChild.textContent)
-    })
-  })
-})()
-
 const changeTaskHeader = function (text) {
+  console.log(text)
   const taskHeader = document.querySelector('.tasks-header .title')
   taskHeader.textContent = text
 }
+
+const alternateTasks = (function () {
+  const taskSections = document.querySelectorAll('.side-nav-home div')
+  const projectCards = document.querySelectorAll('.project-card')
+
+  const helperFunc = (arr) => {
+    arr.forEach((a) => {
+      a.addEventListener('click', () => {
+        arr.forEach((a) => (a.style.borderLeft = 'none'))
+        a.style.borderLeft = '5px solid var(--green-hover)'
+        changeTaskHeader(a.getElementsByTagName('H4')[0].textContent)
+      })
+    })
+  }
+  // taskSections.forEach((section) => {
+  //   // section.addEventListener('click', () => {
+  //   //   taskSections.forEach((section) => {
+  //   //     section.style.borderLeft = 'none'
+  //   //   })
+  //   //   section.style.borderLeft = '5px solid var(--green-hover)'
+  //   //   changeTaskHeader(section.lastElementChild.textContent)
+  //   // })
+  //   helper
+  // })
+
+  helperFunc(taskSections)
+  helperFunc(projectCards)
+})()
+
+
 
 const addProjectToSidenav = (function () {
   const addProjectForm = document.querySelector('.add-project-form')
@@ -81,7 +99,7 @@ const addProjectToSidenav = (function () {
     </div>
   </div>`
     projectSidebar.innerHTML += html
-    input.value = ""
+    input.value = ''
     toggleProjectOptions()
   })
 })()
@@ -136,3 +154,18 @@ const toggleProjectOptions = function () {
 
   const optionInterval = setInterval(intervalFunc, 500)
 }
+
+
+const toggleTasksForm = (function(){
+  const toggler = document.querySelector('.add-tasks h4')
+  const div = document.querySelector('.add-task-form-div')
+  const cancelTask = document.querySelector('.cancel-task')
+
+  toggler.addEventListener('click', () => {
+    div.style.display = 'block'
+  })
+
+  cancelTask.addEventListener('click', () => {
+    div.style.display = 'none'
+  })
+}())

@@ -227,6 +227,59 @@
           <div class="tasks-header">
             <h1 class="title">All Tasks</h1>
           </div>
+
+          <div class="tasks-list">
+            <div class="task-div">
+              <div class="task">
+                <div class="name">
+                  <div class="task-completion completed"></div>
+                  <h3>First Task</h3>
+                </div>
+                <div class="extra-options">
+                  <button>Details</button>
+                  <h5>Oct 17th</h5>
+                  <i class="fa-solid fa-user-pen"></i>
+                  <i class="fa-solid fa-trash-can"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="add-tasks">
+            <div class="add-task-form-div">
+              <h1>Add Task</h1>
+              <form class="add-task-form">
+                <div class="regular-inputs">
+                  <input
+                    type="text"
+                    placeholder="Task Name"
+                    id="taskname"
+                    name="task-name"
+                  />
+                  <textarea
+                    name="description"
+                    id=""
+                    placeholder="Description"
+                    cols="30"
+                    rows="10"
+                  ></textarea>
+                </div>
+                <div class="special-inputs">
+                  <input type="date" name="" id="" />
+                  <select name="" id="priority">
+                    <option value="p1">priority 1</option>
+                    <option value="p2">priority 2</option>
+                    <option value="p3">priority 3</option>
+                    <option value="p4">priority 4</option>
+                  </select>
+                </div>
+                <div class="form-buttons">
+                  <button type="submit">Add Task</button>
+                  <button type="button" class="cancel-task">Cancel</button>
+                </div>
+              </form>
+            </div>
+            <h4><i class="fa-solid fa-plus"></i> Add Task</h4>
+          </div>
         </div>
       </div>
     </div>

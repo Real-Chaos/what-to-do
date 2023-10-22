@@ -328,3 +328,102 @@ input:checked + label svg.sun {
 input:checked + label svg.moon {
   fill: #fff;
 }
+
+
+
+/* task form */
+
+.add-task-form-div {
+  background-color: var(--header-bg);
+  margin-top: 40px;
+  display: grid;
+  padding: 20px 40px;
+  text-align: center;
+  gap: 20px;
+  display: none;
+}
+
+.add-task-form div {
+  display: flex;
+}
+
+.add-task-form .regular-inputs {
+  justify-content: space-between;
+  gap: 5px;
+  flex-direction: column;
+  
+}
+
+.regular-inputs input, textarea, .special-inputs input, select, .add-task-form button {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: var(--side-nav);
+  padding: 15px;
+  color: var(--text);
+}
+
+.add-task-form .special-inputs {
+  margin-top: 10px;
+  gap: 20px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+
+
+.add-task-form button {
+  margin-top: 10px;
+  font-weight: bolder;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.add-tasks h4 {
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.task {
+  background-color: var(--side-nav);
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-left: 8px solid var(--green-tasks);
+}
+
+.task div {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.task .name {
+  gap: 10px;
+}
+
+.task-completion {
+  width: 20px;
+  height: 20px;
+  border: solid red;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.extra-options {
+  cursor: pointer;
+  gap: 20px;
+}
+
+.task div button {
+  background: var(--header-bg);
+  color: var(--text);
+  padding: 5px 20px;
+  outline: none;
+  border: none;
+  font-weight: bolder;
+  cursor: pointer;
+}
