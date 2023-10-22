@@ -230,18 +230,46 @@
 
           <div class="tasks-list">
             <div class="task-div">
-              <div class="task">
+              <!-- <div class="task">
                 <div class="name">
                   <div class="task-completion completed"></div>
                   <h3>First Task</h3>
                 </div>
                 <div class="extra-options">
-                  <button>Details</button>
+                  <button class="details-btn">Details</button>
                   <h5>Oct 17th</h5>
                   <i class="fa-solid fa-user-pen"></i>
                   <i class="fa-solid fa-trash-can"></i>
                 </div>
-              </div>
+                <dialog>
+                  <div>
+                    <h3>First Task</h3>
+                    <i class="fa-regular fa-circle-xmark close-dialog"></i>
+                  </div>
+                  <div class="real-details">
+                    <div>
+                      <h4>Project:</h4>
+                      <p>Home</p>
+                    </div>
+                    <div>
+                      <h4>Priority:</h4>
+                      <p>Priority 1</p>
+                    </div>
+                    <div>
+                      <h4>Due Date:</h4>
+                      <p>October 17th, 2023</p>
+                    </div>
+                    <div>
+                      <h4>Description: </h4>
+                      <p>
+                        Lorem ipsum dolor, sit amet consectetur adipisicing
+                        elit. Et aut quaerat tempore, architecto vel perferendis
+                        doloribus nihil optio. Saepe, quasi.
+                      </p>
+                    </div>
+                  </div>
+                </dialog>
+              </div> -->
             </div>
           </div>
           <div class="add-tasks">
@@ -254,6 +282,7 @@
                     placeholder="Task Name"
                     id="taskname"
                     name="task-name"
+                    required
                   />
                   <textarea
                     name="description"
@@ -261,15 +290,16 @@
                     placeholder="Description"
                     cols="30"
                     rows="10"
+                    required
                   ></textarea>
                 </div>
                 <div class="special-inputs">
-                  <input type="date" name="" id="" />
-                  <select name="" id="priority">
-                    <option value="p1">priority 1</option>
-                    <option value="p2">priority 2</option>
-                    <option value="p3">priority 3</option>
-                    <option value="p4">priority 4</option>
+                  <input type="date" name="date" id="" required/>
+                  <select name="priority" id="priority">
+                    <option value="Priority 1">priority 1</option>
+                    <option value="Priority 2">priority 2</option>
+                    <option value="Priority 3">priority 3</option>
+                    <option value="Priority 4">priority 4</option>
                   </select>
                 </div>
                 <div class="form-buttons">

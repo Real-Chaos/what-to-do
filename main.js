@@ -1,3 +1,18 @@
+class tasks {
+  constructor({ name, description, date, priority }) {
+    ;(this.name = name), (this.description = description), (this.date = date)
+    this.priority = priority
+    this.tasksArray = []
+    this.index = this.tasksArray.length - 1
+  }
+  addTask(task) {
+    this.tasksArray.push(task)
+    console.log(this.tasksArray)
+    displayTasks(this.tasksArray)
+    handleTasksModal()
+  }
+}
+
 const toggleTheme = (function () {
   const checkboxToggler = document.querySelector('.checkbox-toggle')
   const root = document.documentElement
@@ -76,8 +91,6 @@ const alternateTasks = (function () {
   helperFunc(projectCards)
 })()
 
-
-
 const addProjectToSidenav = (function () {
   const addProjectForm = document.querySelector('.add-project-form')
   const input = document.querySelector('#project-name')
@@ -155,8 +168,7 @@ const toggleProjectOptions = function () {
   const optionInterval = setInterval(intervalFunc, 500)
 }
 
-
-const toggleTasksForm = (function(){
+const toggleTasksForm = (function () {
   const toggler = document.querySelector('.add-tasks h4')
   const div = document.querySelector('.add-task-form-div')
   const cancelTask = document.querySelector('.cancel-task')
@@ -168,4 +180,92 @@ const toggleTasksForm = (function(){
   cancelTask.addEventListener('click', () => {
     div.style.display = 'none'
   })
-}())
+})()
+
+const handleTasksModal = function () {
+  const dialogs = document.querySelectorAll('dialog')
+  const showButtons = document.querySelectorAll('.details-btn')
+  const closeButtons = document.querySelectorAll('.close-dialog')
+
+  // "Show the dialog" button opens the dialog modally
+  showButtons.forEach((showButton, index) => {
+    showButton.addEventListener('click', () => {
+      dialogs[index].showModal()
+    })
+  })
+
+  closeButtons.forEach((closeButton, index) => {
+    closeButton.addEventListener('click', () => {
+      dialogs[index].close()
+    })
+  })
+}
+
+const addTask = (function () {
+  const taskForm = document.querySelector('.add-task-form')
+  const div = document.querySelector('.add-task-form-div')
+  
+
+  
+
+  taskForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const taskObj = {
+      name: e.target.elements['task-name'].value,
+      description: e.target.elements.description.value,
+      date: e.target.elements.date.value,
+      priority: e.target.elements.priority.value,
+    }
+    const newTask = new tasks(taskObj)
+    newTask.addTask(newTask)
+    div.style.display = 'none'
+    taskForm.reset() 
+  })
+})()
+
+const displayTasks = (tasks) => {
+  const tasksDiv = document.querySelector('.task-div')
+  tasks.forEach((task) => {
+    const html = `
+    <div class="task">
+    <div class="name">
+      <div class="task-completion completed"></div>
+      <h3>${task.name}</h3>
+    </div>
+    <div class="extra-options">
+      <button class="details-btn">Details</button>
+      <h5>${task.date}</h5>
+      <i class="fa-solid fa-user-pen"></i>
+      <i class="fa-solid fa-trash-can"></i>
+    </div>
+    <dialog>
+      <div>
+        <h3>${task.name}</h3>
+        <i class="fa-regular fa-circle-xmark close-dialog"></i>
+      </div>
+      <div class="real-details">
+        <div>
+          <h4>Project:</h4>
+          <p>Home</p>
+        </div>
+        <div>
+          <h4>Priority:</h4>
+          <p>${task.priority}</p>
+        </div>
+        <div>
+          <h4>Due Date:</h4>
+          <p>${task.date}</p>
+        </div>
+        <div>
+          <h4>Description: </h4>
+          <p>
+            ${task.description}
+          </p>
+        </div>
+      </div>
+    </dialog>
+  </div>
+    `
+    tasksDiv.innerHTML += html
+  })
+}

@@ -6,6 +6,8 @@
   --body: #192734;
   --green-tasks: #2abd67;
   --green-hover: #a0e0bb;
+  --shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4),
+  inset 0px -5px 15px rgba(255, 255, 255, 0.4);
 }
 
 :root.light {
@@ -16,6 +18,8 @@
   --body: #ececec;
   --green-tasks: #2abd67;
   --green-hover: #a0e0bb;
+  --shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4),
+  inset 0px -5px 15px rgba(255, 255, 255, 0.4);
 }
 
 * {
@@ -264,8 +268,7 @@ label {
   display: block;
   background: #ebebeb;
   border-radius: 200px;
-  box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4),
-    inset 0px -5px 15px rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow);
   cursor: pointer;
 }
 
@@ -339,8 +342,11 @@ input:checked + label svg.moon {
   display: grid;
   padding: 20px 40px;
   text-align: center;
-  gap: 20px;
   display: none;
+}
+
+.add-task-form-div h1 {
+  margin-bottom: 20px;
 }
 
 .add-task-form div {
@@ -426,4 +432,49 @@ textarea {
   border: none;
   font-weight: bolder;
   cursor: pointer;
+}
+
+
+dialog {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: var(--side-nav);
+  padding: 40px;
+  width: 500px;
+  color: var(--text);
+  border: none;
+  flex-direction: column;
+}
+
+dialog div:first-child {
+  justify-content: space-between;
+  font-size: 15px;
+}
+
+dialog .real-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.real-details div {
+  display: flex;
+  justify-content: flex-start !important;
+  margin-top: 10px;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 15px;
+  width: 100%;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+  
+}
+
+.close-dialog {
+  cursor: pointer;
+  font-size: 20px;
 }
