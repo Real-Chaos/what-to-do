@@ -3,13 +3,26 @@ class tasks {
     ;(this.name = name), (this.description = description), (this.date = date)
     this.priority = priority
     this.tasksArray = []
-    this.index = this.tasksArray.length - 1
+    this.index = this.tasksArray.length
   }
   addTask(task) {
     this.tasksArray.push(task)
     console.log(this.tasksArray)
     displayTasks(this.tasksArray)
     handleTasksModal()
+    editProject(this.tasksArray)
+  }
+}
+
+class projects {
+  constructor(name) {
+    this.name = name
+    this.projectsArray = []
+  }
+
+  addProject(project) {
+    this.projectsArray.push(project)
+    addProjectToSidenavDOM(this.projectsArray)
   }
 }
 
@@ -94,13 +107,24 @@ const alternateTasks = (function () {
 const addProjectToSidenav = (function () {
   const addProjectForm = document.querySelector('.add-project-form')
   const input = document.querySelector('#project-name')
-  const projectSidebar = document.querySelector('.project-sidebar')
   addProjectForm.addEventListener('submit', (e) => {
     e.preventDefault()
+    const project = new projects(input.value)
+    project.addProject(project)
+    input.value = ''
+    toggleProjectOptions()
+  })
+})()
+
+const addProjectToSidenavDOM = (projects) => {
+  console.log(projects)
+  const projectSidebar = document.querySelector('.project-sidebar')
+  projects.forEach((project) => {
+    // console.log(project)
     const html = `<div class="project-card" data-index="0">
     <div class="text">
       <i class="fa-solid fa-list-check"></i>
-      <h4>${input.value}</h4>
+      <h4>${project.name}</h4>
     </div>
     <div class="options">
       <i class="fa-solid fa-ellipsis-vertical options-toggler"></i>
@@ -112,10 +136,8 @@ const addProjectToSidenav = (function () {
     </div>
   </div>`
     projectSidebar.innerHTML += html
-    input.value = ''
-    toggleProjectOptions()
   })
-})()
+}
 
 const toggleProjectOptions = function () {
   const optionsToggler = document.querySelectorAll('.options-toggler')
@@ -204,9 +226,6 @@ const handleTasksModal = function () {
 const addTask = (function () {
   const taskForm = document.querySelector('.add-task-form')
   const div = document.querySelector('.add-task-form-div')
-  
-
-  
 
   taskForm.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -219,7 +238,7 @@ const addTask = (function () {
     const newTask = new tasks(taskObj)
     newTask.addTask(newTask)
     div.style.display = 'none'
-    taskForm.reset() 
+    taskForm.reset()
   })
 })()
 
@@ -227,7 +246,7 @@ const displayTasks = (tasks) => {
   const tasksDiv = document.querySelector('.task-div')
   tasks.forEach((task) => {
     const html = `
-    <div class="task">
+    <div class="task" data-index="${task.index}">
     <div class="name">
       <div class="task-completion completed"></div>
       <h3>${task.name}</h3>
@@ -235,7 +254,7 @@ const displayTasks = (tasks) => {
     <div class="extra-options">
       <button class="details-btn">Details</button>
       <h5>${task.date}</h5>
-      <i class="fa-solid fa-user-pen"></i>
+      <i class="fa-solid fa-user-pen edit-project-btn"></i>
       <i class="fa-solid fa-trash-can"></i>
     </div>
     <dialog>
@@ -268,4 +287,20 @@ const displayTasks = (tasks) => {
     `
     tasksDiv.innerHTML += html
   })
+}
+
+const editTask = (projects) => {
+  const editProjectButton = document.querySelectorAll('.edit-project-btn')
+  let task = ""
+  editProjectButton.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const task = e.target.parentElement.parentElement.getAttribute('data-index')
+      console.log(e.target.parentElement.parentElement.getAttribute('data-index'))
+      runProjectsScan()
+    })
+  })
+
+  const runProjectsScan = () => {
+    projects.forEach(project => console.log(project.index))
+  }
 }
