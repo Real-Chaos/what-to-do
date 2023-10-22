@@ -85,11 +85,47 @@
           </div>
           <div class="side-nav-projects">
             <h1 class="title">Projects</h1>
+            <div class="project-sidebar">
+              <div class="project-card" data-index="0">
+                <div class="text">
+                  <i class="fa-solid fa-list-check"></i>
+                  <h4>Coding</h4>
+                </div>
+                <div class="options">
+                  <i class="fa-solid fa-ellipsis-vertical options-toggler"></i>
+
+                  <div class="options-text">
+                    <h5>Rename</h5>
+                    <h5>Delete</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="project-card" data-index="0">
+                <div class="text">
+                  <i class="fa-solid fa-list-check"></i>
+                  <h4>Coding</h4>
+                </div>
+                <div class="options">
+                  <i class="fa-solid fa-ellipsis-vertical options-toggler"></i>
+
+                  <div class="options-text">
+                    <h5>Rename</h5>
+                    <h5>Delete</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="add-project-form">
               <form class="project-form">
                 <div class="add-project-input">
                   <i class="fa-solid fa-list-check"></i>
-                  <input type="text" placeholder="Enter Project Name" />
+                  <input
+                    type="text"
+                    id="project-name"
+                    placeholder="Enter Project Name"
+                    minlength="5"
+                    required
+                  />
                 </div>
                 <div class="form-buttons">
                   <button class="add-btn" type="submit">Add</button>

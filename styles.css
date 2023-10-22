@@ -83,7 +83,7 @@ header .nav-toggler:hover {
   padding: 20px;
   display: block;
   height: 89.2vh;
-  /* position: absolute; */
+  /* position: relative; */
   width: 20vw;
   transform: translateX(0vw);
   transition: 1s;
@@ -100,7 +100,7 @@ header .nav-toggler:hover {
   padding-bottom: 20px;
 }
 
-.side-nav-home div {
+.side-nav-home div, .project-card {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -113,13 +113,50 @@ header .nav-toggler:hover {
   border-left: 5px solid var(--green-hover);
 }
 
-.side-nav-home div:hover {
+.side-nav-home div:hover, .project-card:hover {
   background-color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
 }
 
 .side-nav-home img {
   height: 30px;
+}
+
+.project-sidebar .project-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-card {
+  margin-bottom: 20px;
+}
+
+.project-card .text {
+  display: flex;
+  gap: 10px;
+}
+
+/* .options-toggler {
+  border: solid red;
+} */
+
+.options .options-text {
+  position: absolute;
+  right: 25px;
+  background-color: var(--header-bg);
+  padding: 10px;
+  display: none;
+}
+
+.options-text h5 {
+  padding-bottom: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.options-text h5:hover {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .add-project-form {
@@ -142,7 +179,7 @@ header .nav-toggler:hover {
   outline: none;
   background-color: var(--header-bg);
   border: none;
-  color: white;
+  color: var(--text);
   padding: 10px;
 }
 

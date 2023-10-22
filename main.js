@@ -42,22 +42,69 @@ const toggleAddForm = (function () {
   })
 })()
 
-const alternateTasks = (function(){
+const alternateTasks = (function () {
   const taskSections = document.querySelectorAll('.side-nav-home div')
-  taskSections.forEach(section => {
+  taskSections.forEach((section) => {
     section.addEventListener('click', () => {
-      taskSections.forEach(section => {
-        section.style.borderLeft="none"
+      taskSections.forEach((section) => {
+        section.style.borderLeft = 'none'
       })
-      section.style.borderLeft="5px solid var(--green-hover)"
+      section.style.borderLeft = '5px solid var(--green-hover)'
       changeTaskHeader(section.lastElementChild.textContent)
     })
-
   })
-}())
+})()
 
-
-const changeTaskHeader = function(text){
+const changeTaskHeader = function (text) {
   const taskHeader = document.querySelector('.tasks-header .title')
   taskHeader.textContent = text
 }
+
+const addProjectToSidenav = (function () {
+  const addProjectForm = document.querySelector('.add-project-form')
+  const input = document.querySelector('#project-name')
+  addProjectForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    console.log(input.value)
+  })
+})()
+
+const toggleProjectOptions = (function () {
+  const optionsToggler = document.querySelectorAll('.options-toggler')
+  const optionsText = document.querySelectorAll('.options-text')
+  let optionClicked = {
+    option: '',
+    toggle: '',
+  }
+
+  const detectDocument = () => {
+    document.addEventListener('click', (e) => {
+      if (
+        optionClicked.option.contains(e.target) ||
+        e.target === optionClicked.toggle
+      ) {
+        optionClicked.option.style.display = 'block'
+      } else {
+        optionClicked.option.style.display = 'none'
+      }
+    })
+  }
+
+  const intervalFunc = () => {
+    if (optionClicked.option.className === 'options-text') {
+      detectDocument()
+      clearInterval(optionInterval)
+    }
+  }
+
+  const optionInterval = setInterval(intervalFunc, 500)
+
+  optionsToggler.forEach((toggle, i) => {
+    toggle.addEventListener('click', () => {
+      console.log(toggle, i)
+      optionsText[i].style.display = 'block'
+      optionClicked.option = optionsText[i]
+      optionClicked.toggle = toggle
+    })
+  })
+})()
