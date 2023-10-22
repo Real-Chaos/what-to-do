@@ -87,17 +87,44 @@ header .nav-toggler:hover {
   width: 20vw;
   transform: translateX(0vw);
   transition: 1s;
+  overflow-y: auto;
+  direction: rtl;
 }
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  .side-nav {
+    scrollbar-width: auto;
+    scrollbar-color: #242324 #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  .side-nav::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .side-nav::-webkit-scrollbar-track {
+    background: var(--side-nav);
+  }
+
+  .side-nav::-webkit-scrollbar-thumb {
+    background-color: #242324;
+    border-radius: 10px;
+    background-color: var(--header-bg);
+    /* border: 3px solid #ffffff; */
+  }
 
 .side-nav .title {
   font-size: 20px;
   border-bottom: solid white;
   padding-bottom: 5px;
   margin-bottom: 20px;
+  direction: ltr;
 }
 
 .side-nav-home {
   padding-bottom: 20px;
+  direction: ltr;
 }
 
 .side-nav-home div, .project-card {
@@ -107,6 +134,7 @@ header .nav-toggler:hover {
   margin-top: 10px;
   padding: 10px 5px;
   background-color: var(--header-bg);
+  direction: ltr;
 }
 
 .side-nav-home div:nth-child(2){
@@ -162,6 +190,7 @@ header .nav-toggler:hover {
 .add-project-form {
   margin-bottom: 20px;
   display: none;
+  direction: ltr;
 }
 
 .add-project-input {
@@ -204,6 +233,11 @@ header .nav-toggler:hover {
   color: var(--text);
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: bolder;
+}
+
+.add-project-text {
+  direction: ltr;
+  text-align: center;
 }
 
 .add-project-text:hover {

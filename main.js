@@ -63,13 +63,30 @@ const changeTaskHeader = function (text) {
 const addProjectToSidenav = (function () {
   const addProjectForm = document.querySelector('.add-project-form')
   const input = document.querySelector('#project-name')
+  const projectSidebar = document.querySelector('.project-sidebar')
   addProjectForm.addEventListener('submit', (e) => {
     e.preventDefault()
-    console.log(input.value)
+    const html = `<div class="project-card" data-index="0">
+    <div class="text">
+      <i class="fa-solid fa-list-check"></i>
+      <h4>${input.value}</h4>
+    </div>
+    <div class="options">
+      <i class="fa-solid fa-ellipsis-vertical options-toggler"></i>
+
+      <div class="options-text">
+        <h5>Rename</h5>
+        <h5>Delete</h5>
+      </div>
+    </div>
+  </div>`
+    projectSidebar.innerHTML += html
+    input.value = ""
+    toggleProjectOptions()
   })
 })()
 
-const toggleProjectOptions = (function () {
+const toggleProjectOptions = function () {
   const optionsToggler = document.querySelectorAll('.options-toggler')
   const optionsText = document.querySelectorAll('.options-text')
   let optionClicked = {
@@ -118,4 +135,4 @@ const toggleProjectOptions = (function () {
   }
 
   const optionInterval = setInterval(intervalFunc, 500)
-})()
+}
