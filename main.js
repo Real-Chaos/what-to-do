@@ -1,19 +1,24 @@
 const taskCollection = {
   tasks: [],
+  taskProject: 'All Tasks',
+  displayTasks: [],
 }
 
 const allFunction = () => {
-  displayTasks()
+  taskCollection.displayTasks = taskCollection.tasks.filter(t => t.project === taskCollection.taskProject)
+  displayTasks(taskCollection.displayTasks)
   handleTasksModal()
   editTask()
   deleteTasks()
+  alternateTasks()
 }
 
 class tasks {
-  constructor({ name, description, date, priority }) {
+  constructor({ name, description, date, priority, project }) {
     ;(this.name = name), (this.description = description), (this.date = date)
     this.priority = priority
     this.index = taskCollection.tasks.length
+    this.project = project
   }
   addTask(task) {
     taskCollection.tasks = task
@@ -80,33 +85,49 @@ const changeTaskHeader = function (text) {
   taskHeader.textContent = text
 }
 
-const alternateTasks = (function () {
-  const taskSections = document.querySelectorAll('.side-nav-home div')
-  const projectCards = document.querySelectorAll('.project-card')
+const renderProjects = (projectType) => {
+  taskCollection.displayTasks = taskCollection.tasks.filter(
+    (t) => t.project === projectType
+  )
+  console.log(taskCollection.taskProject)
+  displayTasks(taskCollection.displayTasks)
+}
+
+const alternateTasks = function () {
+  // const taskSections = document.querySelectorAll('.side-nav-home div')
+  // const projectCards = document.querySelectorAll('.project-card')
 
   const helperFunc = (arr) => {
     arr.forEach((a) => {
       a.addEventListener('click', () => {
         arr.forEach((a) => (a.style.borderLeft = 'none'))
         a.style.borderLeft = '5px solid var(--green-hover)'
-        changeTaskHeader(a.getElementsByTagName('H4')[0].textContent)
+        const selectedProject = a.getElementsByTagName('H4')[0].textContent
+        changeTaskHeader(selectedProject)
+        taskCollection.taskProject = selectedProject
+        renderProjects(taskCollection.taskProject)
+        allFunction()
       })
     })
-  }
-  // taskSections.forEach((section) => {
-  //   // section.addEventListener('click', () => {
-  //   //   taskSections.forEach((section) => {
-  //   //     section.style.borderLeft = 'none'
-  //   //   })
-  //   //   section.style.borderLeft = '5px solid var(--green-hover)'
-  //   //   changeTaskHeader(section.lastElementChild.textContent)
-  //   // })
-  //   helper
-  // })
 
-  helperFunc(taskSections)
-  helperFunc(projectCards)
-})()
+    // }
+    // // taskSections.forEach((section) => {
+    // //   // section.addEventListener('click', () => {
+    // //   //   taskSections.forEach((section) => {
+    // //   //     section.style.borderLeft = 'none'
+    // //   //   })
+    // //   //   section.style.borderLeft = '5px solid var(--green-hover)'
+    // //   //   changeTaskHeader(section.lastElementChild.textContent)
+    // //   // })
+    // //   helper
+    // // })
+
+    // helperFunc(taskSections)
+    // helperFunc(projectCards)
+  }
+  const projectNameDiv = document.querySelectorAll('.project-name-div')
+  helperFunc(projectNameDiv)
+}
 
 const addProjectToSidenav = (function () {
   const addProjectForm = document.querySelector('.add-project-form')
@@ -123,7 +144,7 @@ const addProjectToSidenav = (function () {
 const addProjectToSidenavDOM = (projects) => {
   const projectSidebar = document.querySelector('.project-sidebar')
   projects.forEach((project) => {
-    const html = `<div class="project-card" data-index="0">
+    const html = `<div class="project-card project-name-div" data-index="0">
     <div class="text">
       <i class="fa-solid fa-list-check"></i>
       <h4>${project.name}</h4>
@@ -139,6 +160,8 @@ const addProjectToSidenavDOM = (projects) => {
   </div>`
     projectSidebar.innerHTML += html
   })
+
+  alternateTasks()
 }
 
 const toggleProjectOptions = function () {
@@ -237,10 +260,12 @@ const addTask = function (type, ti) {
         description: e.target.elements.description.value,
         date: e.target.elements.date.value,
         priority: e.target.elements.priority.value,
+        project: taskCollection.taskProject
       }
       if (type === 'create') {
         const newTask = new tasks(taskObj)
         newTask.addTask([...taskCollection.tasks, newTask])
+        console.log(taskCollection.tasks)
       } else {
         taskCollection.tasks.forEach((task, i) => {
           if (task.index === ti) {
@@ -260,8 +285,8 @@ const addTask = function (type, ti) {
   )
 }
 
-const displayTasks = () => {
-  const tasks = taskCollection.tasks
+const displayTasks = (tasks) => {
+  // const tasks = taskCollection.tasks
   const tasksDiv = document.querySelector('.task-div')
   tasksDiv.innerHTML = ''
   tasks.forEach((task) => {
@@ -358,8 +383,11 @@ const deleteTasks = () => {
         (task) => task.index !== taskIndex
       )
       taskCollection.tasks = filter
-      displayTasks()
       allFunction()
+      displayTasks(taskCollection.displayTasks)
+      
     })
   })
 }
+
+alternateTasks()
